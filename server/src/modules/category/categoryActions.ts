@@ -1,3 +1,4 @@
+import categoryRepository from "./categoryRepository";
 // Some data to make the trick
 const categories = [
   {
@@ -13,7 +14,8 @@ const categories = [
 // Declare the actions
 import type { RequestHandler } from "express";
 
-const browse: RequestHandler = (req, res) => {
+const browse: RequestHandler = async (req, res) => {
+  const categoriesFromDB = await categoryRepository.readAll();
   const query = req.query.q as string | undefined;
 
   if (query) {
@@ -22,7 +24,7 @@ const browse: RequestHandler = (req, res) => {
     );
     res.json(filteredCategories);
   } else {
-    res.json(categories);
+    res.json(categoriesFromDB);
   }
 };
 
