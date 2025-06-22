@@ -9,24 +9,16 @@ interface Program {
   year: number;
 }
 
-const Programs = () => {
+function Programs() {
   const [programs, setPrograms] = useState<Program[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
 
   useEffect(() => {
     fetch("http://localhost:3310/api/programs")
-      .then((res) => {
-        if (!res.ok) throw new Error("Erreur lors du chargement");
-        return res.json();
-      })
-      .then((data) => setPrograms(data))
-      .catch((err) => setError(err.message))
-      .finally(() => setLoading(false));
+      .then((response) => response.json())
+      .then((data) => {
+        setPrograms(data);
+      });
   }, []);
-
-  if (loading) return <p>Chargement...</p>;
-  if (error) return <p>Erreur : {error}</p>;
 
   return (
     <div className="bg-gray-700/80 p-4">
@@ -55,6 +47,6 @@ const Programs = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Programs;

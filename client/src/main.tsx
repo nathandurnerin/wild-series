@@ -2,12 +2,20 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router";
-import Programs from "./pages/programs";
 
 /* ************************************************************************* */
 
 // Import the main app component
 import App from "./App";
+import Home from "./pages/Home";
+import CategoryDetail from "./pages/categoryDetail";
+import CategoryEdit from "./pages/categoryEdit";
+import CategoryIndex from "./pages/categoryIndex";
+import CategoryNew from "./pages/categoryNew";
+import ProgramDetail from "./pages/programDetails";
+import ProgramEdit from "./pages/programEdit";
+import ProgramIndex from "./pages/programIndex";
+import ProgramNew from "./pages/programNew";
 
 // Import additional components for new routes
 // Try creating these components in the "pages" folder
@@ -23,10 +31,44 @@ const router = createBrowserRouter([
   {
     path: "/", // The root path
     element: <App />, // Renders the App component for the home page
-  },
-  {
-    path: "/programs",
-    element: <Programs />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/categories",
+        element: <CategoryIndex />,
+      },
+      {
+        path: "/categories/new",
+        element: <CategoryNew />,
+      },
+      {
+        path: "/categories/:id",
+        element: <CategoryDetail />,
+      },
+      {
+        path: "/categories/:id/edit",
+        element: <CategoryEdit />,
+      },
+      {
+        path: "/programs",
+        element: <ProgramIndex />,
+      },
+      {
+        path: "/programs/new",
+        element: <ProgramNew />,
+      },
+      {
+        path: "/programs/:id",
+        element: <ProgramDetail />,
+      },
+      {
+        path: "/programs/:id/edit",
+        element: <ProgramEdit />,
+      },
+    ],
   },
   // Try adding a new route! For example, "/about" with an About component
 ]);
